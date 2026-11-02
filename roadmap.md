@@ -7,3 +7,4 @@
 - [x] Final CTA + footer as one seamless closing.
 - [x] Replace only the ending with a navy editorial contact form and white chapter footer.
 - [x] Verify validation, honest no-integration fallback, chapter links and desktop/tablet/mobile layouts.
+- [x] Remove the duplicate compass scene that sat before the closing call to action.
