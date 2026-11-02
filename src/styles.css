@@ -325,3 +325,24 @@
 @media (prefers-reduced-motion: reduce) {
   .intro-loader { animation: none; opacity: 0; visibility: hidden; }
 }
+
+/* Cinematic entrances — driven by the shared scene playhead (--reveal) and a one-time hero intro. */
+.story-heading {
+  --r: var(--reveal, 1);
+  translate: 0 calc((1 - var(--r)) * 22px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(var(--r) * 160% - 60%), transparent calc(var(--r) * 160% - 10%));
+  mask-image: linear-gradient(to bottom, #000 calc(var(--r) * 160% - 60%), transparent calc(var(--r) * 160% - 10%));
+}
+.story-body { opacity: var(--reveal-body, 1); translate: 0 calc((1 - var(--reveal-body, 1)) * 12px); }
+.scene-media { will-change: transform; transform-origin: 50% 60%; }
+[data-scene="0"] .scene-media { animation: hero-media 2.8s cubic-bezier(.22,.7,.2,1) 1.4s both; }
+[data-scene="0"] .story-heading { animation: hero-rise 1.4s cubic-bezier(.22,.7,.2,1) 2s both; }
+[data-scene="0"] .story-body { animation: hero-rise 1.2s cubic-bezier(.22,.7,.2,1) 2.45s both; }
+@keyframes hero-media { from { scale: 1.1; filter: brightness(.6); } to { scale: 1; filter: none; } }
+@keyframes hero-rise { from { opacity: 0; translate: 0 26px; } to { opacity: 1; translate: 0 0; } }
+@media (max-width: 760px) { .story-heading { translate: 0 calc((1 - var(--r)) * 12px); } }
+@media (prefers-reduced-motion: reduce) {
+  .story-heading, .story-body { translate: none; -webkit-mask-image: none; mask-image: none; opacity: 1; }
+  .scene-media { transform: none !important; }
+  [data-scene="0"] .scene-media, [data-scene="0"] .story-heading, [data-scene="0"] .story-body { animation: none; }
+}
