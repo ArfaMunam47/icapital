@@ -8,3 +8,5 @@
 - [x] Replace only the ending with a navy editorial contact form and white chapter footer.
 - [x] Verify validation, honest no-integration fallback, chapter links and desktop/tablet/mobile layouts.
 - [x] Remove the duplicate compass scene that sat before the closing call to action.
+- [ ] Cinematic scroll: hero entrance, headline reveals, media zoom.
+- [ ] Audit improvements: chapter labels, services, how we work, proof, legal, CTA fix, readability, menu order, logo, mobile counter.
