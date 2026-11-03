@@ -10,3 +10,4 @@
 - [x] Remove the duplicate compass scene that sat before the closing call to action.
 - [x] Cinematic scroll: hero entrance, headline reveals, media zoom.
 - [x] Audit improvements: chapter labels, services, how we work, proof, legal, CTA fix, readability, menu order, logo, mobile counter.
+- [ ] Business readiness: central config + dev-only publication, Discover/Define/Navigate, credibility fields, legal footer, remove unverified claims, real contact submissions.
