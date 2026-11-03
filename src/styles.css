@@ -370,3 +370,4 @@
   .scene-services li + li::before { margin-right: 1rem; }
   .story-copy { padding-bottom: 72px; }
 }
+@media (max-width: 760px) { .clarity-scene .scene-label { display: none; } }
