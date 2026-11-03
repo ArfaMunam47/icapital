@@ -5,6 +5,7 @@ import { useStorySound } from "@/hooks/use-story-sound";
 import { StoryLandscape, CloudReveal } from "@/components/story-landscape";
 import { Button } from "@/components/ui/button";
 import { ContactEnding } from "@/components/contact-ending";
+import { approach, credibility, visibleFacts, visibleServices } from "@/lib/business";
 import { Volume2, VolumeX } from "lucide-react";
 import ridge from "@/assets/reference-scene_02_2segs_HD.webm.asset.json";
 import alpine from "@/assets/reference-scene_03_2segs_HD.webm.asset.json";
@@ -21,9 +22,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "iCapital — The value is in the journey" },
-      { name: "description", content: "A cinematic journey through independent wealth advice: perspective, legacy and twenty years of setting the course." },
+      { name: "description", content: "A cinematic journey through considered wealth advice: perspective, legacy and long-term direction." },
       { property: "og:title", content: "iCapital — The value is in the journey" },
-      { property: "og:description", content: "A cinematic scroll story about independence, perspective and long-term vision." },
+      { property: "og:description", content: "A cinematic scroll story about perspective, legacy and long-term vision." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -35,28 +36,39 @@ const A = ({ children }: { children: ReactNode }) => <em className="accent-word"
 
 type Scene = { bg: "opening" | "video" | "sunset" | "birds" | "vision" | "paper" | "silk" | "current" | "living-video" | "horizon" | "clarity"; src?: string; poster?: string; title: ReactNode; body?: ReactNode; tone?: "dark"; center?: boolean; mist?: boolean; cloudReveal?: boolean; legacy?: boolean; paper?: boolean; creative?: "vision" | "clarity" | "journey" | "side"; extra?: ReactNode };
 
-const labels = ["The journey", "Perspective", "Direction", "Our compass", "Legacy", "Who we serve", "Independence", "Twenty years", "Vision", "Clarity", "Patience", "Alignment", "Perspective"];
+function Services() {
+  const list = visibleServices();
+  if (!list.length) return null;
+  return <ul className="scene-services">{list.map((x) => <li key={x.name}>{x.name}{!x.verified && <sup className="dev-flag">dev</sup>}</li>)}</ul>;
+}
+function Credibility() {
+  const facts = visibleFacts(credibility.slice(0, 3));
+  if (!facts.length) return null;
+  return <dl className="scene-proof">{facts.map((f) => <div key={f.label} className={f.placeholder ? "is-placeholder" : ""}><dt>{f.value}</dt><dd>{f.label}</dd></div>)}</dl>;
+}
+
+const labels = ["The journey", "Perspective", "Direction", "Our compass", "Legacy", "Who we serve", "Independence", "Direction", "Vision", "Clarity", "Patience", "Alignment", "Perspective"];
 const toContact = () => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
 
 const scenes: Scene[] = [
   {
     bg: "opening",
     title: <>The value is in the <A>journey</A></>,
-    body: <>For 20 years we have guided your wealth with judgement and independence, because the journey matters as much as reaching the destination</>,
+    body: <>We guide wealth with care and judgement, because the journey matters as much as reaching the destination</>,
   },
   { bg: "video", src: ridge.url, poster: ridgePoster.url, title: <>The decisions that<br />matter most demand<br /><A>perspective</A></> },
   { bg: "video", src: alpine.url, poster: alpinePoster.url, cloudReveal: true, tone: "dark", center: true, title: <>They do not<br />just <A>alter</A> the<br />destination</> },
   {
     bg: "vision", center: true,
     title: <>Our <A>compass:</A></>,
-    body: <>A life lived with independence, a long-term vision and interests that are always aligned with yours</>,
+    body: <>Understanding what you want your wealth to make possible, then keeping that direction in view</>,
   },
   { bg: "video", src: trail.url, poster: trailPoster.url, legacy: true, title: <>Some fortunes<br />speak<br />of <A>legacy</A></> },
-  { bg: "paper", src: trail.url, poster: trailPoster.url, paper: true, center: true, title: <>Whether you are a family,<br />an institution or a company</>, body: <>We are by your side to preserve, grow and project your future</>, extra: <ul className="scene-services">{["Wealth planning", "Investment advisory", "Family office", "Corporate & institutional"].map((x) => <li key={x}>{x}</li>)}</ul> },
+  { bg: "paper", src: trail.url, poster: trailPoster.url, paper: true, center: true, title: <>Whether you are a family,<br />an institution or a company</>, body: <>We are by your side to preserve, grow and project your future</>, extra: <Services /> },
   { bg: "video", src: beach.url, poster: beachPoster.url, title: <><A>Neither</A><br />do we</> },
-  { bg: "birds", title: <>And for 20 years<br />we have set the <A>course</A></>, extra: <dl className="scene-proof">{[["20", "years of advice"], ["[Placeholder]", "families & institutions"], ["[Placeholder]", "regulatory registration"]].map(([a, b]) => <div key={b}><dt>{a}</dt><dd>{b}</dd></div>)}</dl> },
+  { bg: "birds", title: <>Step by step,<br />we set the <A>course</A></>, extra: <Credibility /> },
   { bg: "horizon", creative: "vision", title: <>Vision matters<span className="creative-bridge">when it becomes</span>a <A>decision.</A></> },
-  { bg: "clarity", poster: alpinePoster.url, creative: "clarity", title: <><span className="clarity-eyebrow">A clearer perspective</span>See beyond<br />the <A>complexity.</A></>, body: <>The decisions that shape a life deserve more than a closer look. They ask for distance, independent thinking and a clear view of what lies ahead.<span className="clarity-closing">Clarity for the decisions that shape tomorrow.</span></>, extra: <ol className="scene-steps">{["Listen to what matters", "Build an independent view", "Decide and walk it together"].map((x, i) => <li key={x}><span>0{i + 1}</span>{x}</li>)}</ol> },
+  { bg: "clarity", poster: alpinePoster.url, creative: "clarity", title: <><span className="clarity-eyebrow">A clearer perspective</span>See beyond<br />the <A>complexity.</A></>, body: <>The decisions that shape a life deserve more than a closer look. They ask for distance, careful thinking and a clear view of what lies ahead.<span className="clarity-closing">Clarity for the decisions that shape tomorrow.</span></>, extra: <ol className="scene-steps">{approach.map((x, i) => <li key={x.step}><span>0{i + 1}</span><b>{x.step}</b> — {x.text}</li>)}</ol> },
   { bg: "living-video", src: beach.url, poster: beachPoster.url, creative: "journey", title: <>Never hurry<br />the <A>journey.</A></> },
   { bg: "living-video", src: ridge.url, poster: ridgePoster.url, creative: "side", title: <>We take<br />your <A>side.</A></> },
   { bg: "video", src: arch.url, poster: archPoster.url, title: <>Every journey<br />opens a new <A>perspective</A></>, extra: <button type="button" onClick={toContact} className="scene-advisor">Speak with an advisor →</button> },
