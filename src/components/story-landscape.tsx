@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import mountain from "@/assets/reference-scene-01-back.webp.asset.json";
 import foreground from "@/assets/reference-scene-01-front.webp.asset.json";
 import clouds from "@/assets/reference-clouds.webp.asset.json";
@@ -14,6 +14,13 @@ export function StoryLandscape({ kind, src, poster, progress }: {
   const video = useRef<HTMLVideoElement>(null);
   const playhead = useRef(progress);
   playhead.current = progress;
+  const [wide, setWide] = useState(true);
+  useEffect(() => {
+    const m = window.matchMedia("(min-width: 761px)");
+    const u = () => setWide(m.matches);
+    u(); m.addEventListener("change", u);
+    return () => m.removeEventListener("change", u);
+  }, []);
 
   useEffect(() => {
     const element = video.current;
@@ -51,7 +58,6 @@ export function StoryLandscape({ kind, src, poster, progress }: {
     // The sharp aperture widens from a narrow slit to a wide window as the playhead advances.
     const open = Math.min(1, Math.max(0, (progress - 0.1) / 0.6));
     const e = open * open * (3 - 2 * open);
-    const wide = typeof window !== "undefined" && window.innerWidth > 760;
     const clip = wide
       ? `inset(${18 - e * 6}% ${10 - e * 4}% ${18 - e * 6}% ${62 - e * 18}% round 4px)`
       : `inset(${12 - e * 4}% ${14 - e * 8}% ${62 - e * 6}% ${14 - e * 8}% round 4px)`;

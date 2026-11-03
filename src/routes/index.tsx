@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { useStoryProgress } from "@/hooks/use-story-progress";
 import { useStorySound } from "@/hooks/use-story-sound";
 import { StoryLandscape, CloudReveal } from "@/components/story-landscape";
@@ -33,7 +33,10 @@ export const Route = createFileRoute("/")({
 
 const A = ({ children }: { children: ReactNode }) => <em className="accent-word">{children}</em>;
 
-type Scene = { bg: "opening" | "video" | "sunset" | "birds" | "vision" | "paper" | "silk" | "current" | "living-video" | "horizon" | "clarity"; src?: string; poster?: string; title: ReactNode; body?: ReactNode; tone?: "dark"; center?: boolean; mist?: boolean; cloudReveal?: boolean; legacy?: boolean; paper?: boolean; creative?: "vision" | "clarity" | "journey" | "side" };
+type Scene = { bg: "opening" | "video" | "sunset" | "birds" | "vision" | "paper" | "silk" | "current" | "living-video" | "horizon" | "clarity"; src?: string; poster?: string; title: ReactNode; body?: ReactNode; tone?: "dark"; center?: boolean; mist?: boolean; cloudReveal?: boolean; legacy?: boolean; paper?: boolean; creative?: "vision" | "clarity" | "journey" | "side"; extra?: ReactNode };
+
+const labels = ["The journey", "Perspective", "Direction", "Our compass", "Legacy", "Who we serve", "Independence", "Twenty years", "Vision", "Clarity", "Patience", "Alignment", "Perspective"];
+const toContact = () => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
 
 const scenes: Scene[] = [
   {
@@ -49,14 +52,14 @@ const scenes: Scene[] = [
     body: <>A life lived with independence, a long-term vision and interests that are always aligned with yours</>,
   },
   { bg: "video", src: trail.url, poster: trailPoster.url, legacy: true, title: <>Some fortunes<br />speak<br />of <A>legacy</A></> },
-  { bg: "paper", src: trail.url, poster: trailPoster.url, paper: true, center: true, title: <>Whether you are a family,<br />an institution or a company</>, body: <>We are by your side to preserve, grow and project your future</> },
+  { bg: "paper", src: trail.url, poster: trailPoster.url, paper: true, center: true, title: <>Whether you are a family,<br />an institution or a company</>, body: <>We are by your side to preserve, grow and project your future</>, extra: <ul className="scene-services">{["Wealth planning", "Investment advisory", "Family office", "Corporate & institutional"].map((x) => <li key={x}>{x}</li>)}</ul> },
   { bg: "video", src: beach.url, poster: beachPoster.url, title: <><A>Neither</A><br />do we</> },
-  { bg: "birds", title: <>And for 20 years<br />we have set the <A>course</A></> },
+  { bg: "birds", title: <>And for 20 years<br />we have set the <A>course</A></>, extra: <dl className="scene-proof">{[["20", "years of advice"], ["[Placeholder]", "families & institutions"], ["[Placeholder]", "regulatory registration"]].map(([a, b]) => <div key={b}><dt>{a}</dt><dd>{b}</dd></div>)}</dl> },
   { bg: "horizon", creative: "vision", title: <>Vision matters<span className="creative-bridge">when it becomes</span>a <A>decision.</A></> },
-  { bg: "clarity", poster: alpinePoster.url, creative: "clarity", title: <><span className="clarity-eyebrow">A clearer perspective</span>See beyond<br />the <A>complexity.</A></>, body: <>The decisions that shape a life deserve more than a closer look. They ask for distance, independent thinking and a clear view of what lies ahead.<span className="clarity-closing">Clarity for the decisions that shape tomorrow.</span></> },
+  { bg: "clarity", poster: alpinePoster.url, creative: "clarity", title: <><span className="clarity-eyebrow">A clearer perspective</span>See beyond<br />the <A>complexity.</A></>, body: <>The decisions that shape a life deserve more than a closer look. They ask for distance, independent thinking and a clear view of what lies ahead.<span className="clarity-closing">Clarity for the decisions that shape tomorrow.</span></>, extra: <ol className="scene-steps">{["Listen to what matters", "Build an independent view", "Decide and walk it together"].map((x, i) => <li key={x}><span>0{i + 1}</span>{x}</li>)}</ol> },
   { bg: "living-video", src: beach.url, poster: beachPoster.url, creative: "journey", title: <>Never hurry<br />the <A>journey.</A></> },
   { bg: "living-video", src: ridge.url, poster: ridgePoster.url, creative: "side", title: <>We take<br />your <A>side.</A></> },
-  { bg: "video", src: arch.url, poster: archPoster.url, title: <>Every journey<br />opens a new <A>perspective</A></> },
+  { bg: "video", src: arch.url, poster: archPoster.url, title: <>Every journey<br />opens a new <A>perspective</A></>, extra: <button type="button" onClick={toContact} className="scene-advisor">Speak with an advisor →</button> },
 ];
 
 const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -86,9 +89,7 @@ function Index() {
   const p = useStoryProgress(ref, scenes.length);
   const sound = useStorySound(p);
 
-  const [panel, setPanel] = useState<null | "menu" | "contact">(null);
-  const [lang, setLang] = useState<"en" | "es">("en");
-  const [sent, setSent] = useState(false);
+  const [panel, setPanel] = useState<null | "menu">(null);
   const jump = (i: number) => {
     const el = ref.current;
     if (!el) return;
@@ -128,30 +129,13 @@ function Index() {
           <button onClick={() => setPanel(null)} aria-label="Close" className="absolute right-6 top-6 text-2xl font-light md:right-10">×</button>
           {panel === "menu" && (
             <nav className="flex h-full flex-col items-center justify-center gap-6 text-center">
-              {[["The journey", 0], ["Perspective", 1], ["Our compass", 3], ["Legacy", 4], ["Our side", 11], ["Vision", 8]].map(([l, i]) => (
+              {[["The journey", 0], ["Perspective", 1], ["Our compass", 3], ["Legacy", 4], ["Vision", 8], ["Clarity", 9], ["Our side", 11]].map(([l, i]) => (
                 <button key={l as string} onClick={() => jump(i as number)} className="text-[clamp(1.6rem,3vw,2.6rem)] font-light tracking-tight transition hover:text-accent">
                   {l}
                 </button>
               ))}
-              <button onClick={() => setPanel("contact")} className="mt-6 accent-word text-xl">Talk to us</button>
+              <button onClick={() => { setPanel(null); toContact(); }} className="mt-6 accent-word text-xl">Talk to us</button>
             </nav>
-          )}
-          {panel === "contact" && (
-            <div className="flex h-full items-center justify-center px-6">
-              {sent ? (
-                <p className="text-center text-2xl font-light">Thank you. We'll be <A>by your side</A> shortly.</p>
-              ) : (
-                <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="w-full max-w-md space-y-5 text-center">
-                  <h3 className="text-3xl font-light">Let's begin the <A>journey</A></h3>
-                  <p className="text-[13px] text-muted-foreground">Tell us a little about yourself and an advisor will reach out.</p>
-                  {["Name", "Email", "Phone"].map((f) => (
-                    <input key={f} required={f !== "Phone"} type={f === "Email" ? "email" : "text"} placeholder={f} className="w-full border-b border-border bg-transparent py-2 text-sm outline-none placeholder:text-muted-foreground focus:border-accent" />
-                  ))}
-                  <textarea placeholder="How can we help?" rows={3} className="w-full border-b border-border bg-transparent py-2 text-sm outline-none placeholder:text-muted-foreground focus:border-accent" />
-                  <button className="rounded-full bg-foreground px-8 py-2.5 text-[12px] text-primary-foreground transition hover:bg-accent">Send</button>
-                </form>
-              )}
-            </div>
           )}
         </div>
 
@@ -163,9 +147,12 @@ function Index() {
           const op = i <= p ? 1 : ease(1 + d);
           const textOp = 1 - ease((Math.abs(d) - 0.15) / 0.65);
           const ty = d * -20;
+          const reveal = i <= p ? 1 : ease((d + 0.75) / 0.6);
+          const revealBody = i <= p ? 1 : ease((d + 0.5) / 0.45);
+          const zoom = 1 + Math.abs(d) * 0.05;
           return (
             <div key={i} data-scene={i} className={`story-scene absolute inset-0 ${sc.tone === "dark" ? "story-scene-dark" : ""} ${sc.creative ? "creative-scene" : ""} ${sc.paper ? "paper-scene" : ""} ${sc.legacy ? "legacy-scene" : ""} ${sc.bg === "clarity" ? "clarity-scene" : ""}`} style={{ opacity: op, zIndex: i }}>
-              <div className="absolute inset-0">
+              <div className="scene-media absolute inset-0" style={{ transform: `scale(${zoom})` }}>
                 {(sc.bg === "opening" || sc.bg === "video" || sc.bg === "sunset" || sc.bg === "silk" || sc.bg === "current" || sc.bg === "living-video" || sc.bg === "horizon" || sc.bg === "clarity") && <StoryLandscape kind={sc.bg} src={sc.src} poster={sc.poster} progress={clamp((d + 0.85) / 1.7)} />}
                 {sc.bg === "birds" && <Birds />}
                 {sc.bg === "vision" && <div className="absolute inset-0 bg-ink" />}
@@ -177,10 +164,12 @@ function Index() {
               </div>
               <div
                 className={sc.creative ? `story-copy creative-copy creative-copy-${sc.creative} absolute` : `story-copy text-cine absolute inset-x-0 mx-auto flex max-w-xl flex-col items-center px-6 text-center ${sc.center ? "story-copy-center" : "story-copy-upper"}`}
-                style={{ opacity: textOp, transform: `translateY(${ty}px)` }}
+                style={{ opacity: textOp, transform: `translateY(${ty}px)`, "--reveal": reveal, "--reveal-body": revealBody } as CSSProperties}
               >
+                <p className="scene-label">{String(i + 1).padStart(2, "0")} — {labels[i]}</p>
                 <h2 className="story-heading font-normal leading-[1.15]">{sc.title}</h2>
-                {sc.body && <p className="story-body mt-4 max-w-sm text-[14px] leading-relaxed text-muted-foreground">{sc.body}</p>}
+                {sc.body && <p className="story-body mt-4 max-w-md text-[15px] leading-relaxed">{sc.body}</p>}
+                {sc.extra && <div className="scene-extra story-body">{sc.extra}</div>}
               </div>
             </div>
           );
@@ -188,14 +177,12 @@ function Index() {
 
         {/* Header */}
         <header className={`story-header text-cine absolute inset-x-0 top-0 z-50 flex items-center justify-center px-6 py-6 ${activeScene?.tone === "dark" || activeScene?.paper ? "story-scene-dark" : ""}`}>
-          <a href="#" className="flex items-center gap-1.5" aria-label="iCapital home">
+          <a href="#" onClick={(e) => { e.preventDefault(); jump(0); }} className="flex items-center gap-1.5" aria-label="iCapital home">
             <span className="text-[26px] font-medium tracking-tight"><span className="text-accent">i</span>Capital</span>
-            <span className="text-[6.5px] uppercase leading-[1.25] tracking-wider text-muted-foreground">Wealth<br />Management<br />Advisors</span>
+            <span className="text-[8px] uppercase leading-[1.25] tracking-wider text-muted-foreground">Wealth<br />Management<br />Advisors</span>
           </a>
           <div className="absolute right-6 flex items-center gap-4 text-[11px] md:right-10">
-            <button onClick={() => setPanel("contact")} className="rounded-full border border-border bg-muted px-4 py-1.5 backdrop-blur-sm transition hover:bg-foreground hover:text-primary-foreground">Contact</button>
-            <button onClick={() => setLang("es")} className={`hidden sm:inline ${lang === "es" ? "font-semibold" : "opacity-70"}`}>ES</button>
-            <button onClick={() => setLang("en")} className={`hidden sm:inline ${lang === "en" ? "font-semibold" : "opacity-70"}`}>EN</button>
+            <button onClick={toContact} className="rounded-full border border-border bg-muted px-4 py-1.5 backdrop-blur-sm transition hover:bg-foreground hover:text-primary-foreground">Contact</button>
             <button onClick={() => setPanel("menu")} aria-label="Menu" className="flex flex-col gap-[3px]"><span className="block h-px w-4 bg-foreground" /><span className="block h-px w-4 bg-foreground" /><span className="block h-px w-4 bg-foreground" /></button>
           </div>
         </header>
@@ -214,10 +201,15 @@ function Index() {
           <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M6 0a5 5 0 1 0 4 7A4 4 0 0 1 6 0Z" /></svg>
         </div>
 
+        <div className="text-cine absolute bottom-7 right-6 z-50 text-[11px] tracking-[0.2em] md:hidden" aria-label={`Scene ${Math.round(p) + 1} of ${scenes.length}`}>
+          {String(Math.round(p) + 1).padStart(2, "0")} / {scenes.length}
+          <div className="mt-1 h-px w-12 bg-border"><div className="h-px bg-accent" style={{ width: `${progress * 100}%` }} /></div>
+        </div>
+
         {/* Bottom cue */}
         <div className="absolute inset-x-0 bottom-6 z-50 flex justify-center">
           {p < 0.3 ? (
-            <button onClick={() => go(1)} className="text-cine text-[11px] text-muted-foreground">Discover more</button>
+            <button onClick={() => go(1)} className="text-cine text-[12px] tracking-[0.2em] uppercase text-foreground/80">Discover more</button>
           ) : (
             <button onClick={() => go(1)} aria-label="Next scene" className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-muted backdrop-blur-sm">
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.2"><path d="M2 3.5 L5 6.5 L8 3.5" /></svg>
