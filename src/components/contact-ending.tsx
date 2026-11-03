@@ -54,7 +54,7 @@ export function ContactEnding({ jump }: { jump: (scene: number) => void }) {
 
   return (
     <>
-      <section className="contact-ending" aria-labelledby="contact-ending-title">
+      <section id="contact" className="contact-ending" aria-labelledby="contact-ending-title">
         <div className="contact-ending-layout">
           <div className="contact-invitation">
             <p className="contact-eyebrow">Let’s start a conversation</p>
@@ -89,7 +89,7 @@ export function ContactEnding({ jump }: { jump: (scene: number) => void }) {
             <div><h3>A shared direction</h3>{[["Vision", 8], ["Clarity", 9], ["By your side", 11]].map(([label, scene]) => <Button key={label} variant="ghost" onClick={() => jump(Number(scene))}>{label}</Button>)}</div>
           </nav>
         </div>
-        <div className="white-ending-legal"><span>© {new Date().getUTCFullYear()} iCapital</span><Button variant="ghost" onClick={() => jump(0)} className="footer-replay">Back to the beginning <RotateCcw aria-hidden="true" /></Button></div>
+        <div className="white-ending-legal"><span>© {new Date().getUTCFullYear()} iCapital · [Placeholder: regulatory disclosure and registered address]</span><Button variant="ghost" onClick={() => jump(0)} className="footer-replay">Back to the beginning <RotateCcw aria-hidden="true" /></Button></div>
       </footer>
     </>
   );
