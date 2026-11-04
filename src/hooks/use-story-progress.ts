@@ -1,7 +1,8 @@
 import { useEffect, useState, type RefObject } from "react";
+import { fractionToPlayhead } from "@/lib/story-timeline";
 
 /** Ease the scene playhead, without intercepting native wheel or touch scrolling. */
-export function useStoryProgress(ref: RefObject<HTMLDivElement | null>, sceneCount: number) {
+export function useStoryProgress(ref: RefObject<HTMLDivElement | null>, weights: number[]) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -23,7 +24,7 @@ export function useStoryProgress(ref: RefObject<HTMLDivElement | null>, sceneCou
       const element = ref.current;
       if (!element) return;
       const distance = Math.max(1, element.offsetHeight - window.innerHeight);
-      target = Math.max(0, Math.min(1, window.scrollY / distance)) * (sceneCount - 1);
+      target = fractionToPlayhead(window.scrollY / distance, weights);
       if (!frame) frame = requestAnimationFrame(tick);
     };
     update();
@@ -34,7 +35,7 @@ export function useStoryProgress(ref: RefObject<HTMLDivElement | null>, sceneCou
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, [ref, sceneCount]);
+  }, [ref, weights]);
 
   return progress;
 }

@@ -5,6 +5,7 @@ import { useStorySound } from "@/hooks/use-story-sound";
 import { StoryLandscape, CloudReveal } from "@/components/story-landscape";
 import { Button } from "@/components/ui/button";
 import { ContactEnding } from "@/components/contact-ending";
+import { playheadToFraction } from "@/lib/story-timeline";
 import { approach, credibility, visibleFacts, visibleServices } from "@/lib/business";
 import { Volume2, VolumeX } from "lucide-react";
 import ridge from "@/assets/reference-scene_02_2segs_HD.webm.asset.json";
@@ -48,6 +49,9 @@ function Credibility() {
 }
 
 const labels = ["The journey", "Perspective", "Direction", "Our compass", "Legacy", "Who we serve", "Conviction", "Trust", "Vision", "Clarity", "Patience", "Alignment", "Perspective"];
+/** Scroll length per scene: denser or pivotal chapters hold longer, short lines move on sooner. */
+const weights = [1.25, 1, 1.05, 1.1, 1, 1.2, 0.8, 1.15, 1.15, 1.45, 0.9, 0.95, 1.3];
+const totalWeight = weights.reduce((a, b) => a + b, 0);
 const toContact = () => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
 
 const scenes: Scene[] = [
@@ -98,7 +102,7 @@ function Birds() {
 
 function Index() {
   const ref = useRef<HTMLDivElement>(null);
-  const p = useStoryProgress(ref, scenes.length);
+  const p = useStoryProgress(ref, weights);
   const sound = useStorySound(p);
 
   const [panel, setPanel] = useState<null | "menu">(null);
@@ -106,14 +110,14 @@ function Index() {
     const el = ref.current;
     if (!el) return;
     setPanel(null);
-    window.scrollTo({ top: (i / (scenes.length - 1)) * (el.offsetHeight - window.innerHeight), behavior: "smooth" });
+    window.scrollTo({ top: playheadToFraction(i, weights) * (el.offsetHeight - window.innerHeight), behavior: "smooth" });
   };
 
   const go = (dir: number) => {
     const el = ref.current;
     if (!el) return;
     const max = el.offsetHeight - window.innerHeight;
-    const target = clamp((Math.round(p) + dir) / (scenes.length - 1));
+    const target = playheadToFraction(clamp(Math.round(p) + dir, 0, scenes.length - 1), weights);
     window.scrollTo({ top: target * max, behavior: "smooth" });
   };
 
@@ -151,7 +155,7 @@ function Index() {
           )}
         </div>
 
-    <div ref={ref} style={{ height: `${scenes.length * 120}vh` }} className="relative">
+    <div ref={ref} style={{ height: `${totalWeight * 120}vh` }} className="relative">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {scenes.map((sc, i) => {
           const d = p - i; // <0 upcoming, >0 passed
@@ -204,14 +208,17 @@ function Index() {
           <span className="h-6 w-6 animate-spin rounded-full border-2 border-accent border-t-transparent" />
         </div>
 
-        {/* Right progress rail */}
-        <div className="absolute right-6 top-1/2 z-50 hidden -translate-y-1/2 flex-col items-center gap-2 md:right-10 md:flex" style={{ opacity: clamp(p * 3) }}>
-          <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" strokeWidth="1"><path d="M1 9 L5 3 L7 6 L9 2 L13 9Z" /></svg>
-          <div className="relative h-40 w-px bg-border">
-            <div className="absolute left-0 top-0 w-px bg-accent" style={{ height: `${progress * 100}%` }} />
+        {/* Journey indicator */}
+        <nav className="journey-rail text-cine absolute right-6 top-1/2 z-50 hidden -translate-y-1/2 md:right-10 md:flex" style={{ opacity: clamp(p * 3) }} aria-label="Chapters">
+          <span className="journey-num" aria-live="polite">{String(Math.round(p) + 1).padStart(2, "0")}</span>
+          <div className="journey-track">
+            <div className="journey-fill" style={{ height: `${progress * 100}%` }} />
+            {scenes.map((_, i) => (
+              <button key={i} type="button" onClick={() => jump(i)} aria-label={`Chapter ${i + 1}: ${labels[i]}`} aria-current={Math.round(p) === i ? "step" : undefined} className="journey-tick" style={{ top: `${(i / (scenes.length - 1)) * 100}%` }} />
+            ))}
           </div>
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M6 0a5 5 0 1 0 4 7A4 4 0 0 1 6 0Z" /></svg>
-        </div>
+          <span className="journey-label">{labels[Math.round(p)]}</span>
+        </nav>
 
         <div className="text-cine absolute bottom-7 right-6 z-50 text-[11px] tracking-[0.2em] md:hidden" aria-label={`Scene ${Math.round(p) + 1} of ${scenes.length}`}>
           {String(Math.round(p) + 1).padStart(2, "0")} / {scenes.length}

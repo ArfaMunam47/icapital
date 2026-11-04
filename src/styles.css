@@ -377,3 +377,23 @@
 .footer-legal { display: flex; flex-wrap: wrap; gap: 6px 18px; }
 .footer-legal a:hover { color: var(--brand-blue-soft); }
 .footer-contact { font-size: 11px; margin-top: 4px; }
+
+/* Art direction: one shared grade so footage reads as a single production */
+.story-scene video, .story-scene .mountain-back, .story-scene .mountain-front, .story-scene .sunset-foreground { filter: saturate(.86) contrast(1.05) brightness(.93) hue-rotate(-4deg); }
+.paper-scene video { filter: saturate(.7) brightness(1.05); }
+.story-scene:has(video)::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1; background: radial-gradient(120% 90% at 50% 45%, transparent 55%, color-mix(in oklab, var(--ink) 45%, transparent)), linear-gradient(to top, color-mix(in oklab, var(--ink) 35%, transparent), transparent 35%); }
+.paper-scene::after, .clarity-scene::after { display: none; }
+.story-copy { z-index: 2; }
+.story-heading .accent-word { display: inline-block; }
+
+/* Journey indicator */
+.journey-rail { flex-direction: column; align-items: center; gap: 12px; }
+.journey-num { font-size: 11px; letter-spacing: .2em; font-variant-numeric: tabular-nums; }
+.journey-track { position: relative; height: 180px; width: 1px; background: var(--border); }
+.journey-fill { position: absolute; left: 0; top: 0; width: 1px; background: var(--accent); }
+.journey-tick { position: absolute; left: 50%; width: 15px; height: 15px; translate: -50% -50%; border-radius: 999px; }
+.journey-tick::before { content: ""; position: absolute; inset: 5px; border-radius: 999px; background: currentColor; opacity: .35; transition: opacity .4s, transform .4s; }
+.journey-tick[aria-current="step"]::before { opacity: 1; transform: scale(1.5); background: var(--accent); }
+.journey-tick:hover::before { opacity: .8; }
+.journey-label { writing-mode: vertical-rl; font-size: 9.5px; letter-spacing: .28em; text-transform: uppercase; opacity: .6; max-height: 140px; }
+@media (prefers-reduced-motion: reduce) { .journey-tick::before { transition: none; } }
