@@ -1,6 +1,8 @@
 import { useRef, useState, type FormEvent } from "react";
 import { ArrowUpRight, Copy, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import { contactInfo, visibleFacts, visibleLegal } from "@/lib/business";
 import { contactEnquirySchema, enquiryTypes, interestAreas, formatEnquiry, type ContactEnquiry } from "@/lib/contact-enquiry";
 
 type Field = keyof ContactEnquiry;
@@ -12,6 +14,7 @@ export function ContactEnding({ jump }: { jump: (scene: number) => void }) {
   const [prepared, setPrepared] = useState<ContactEnquiry | null>(null);
   const [copying, setCopying] = useState(false);
   const [copyStatus, setCopyStatus] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "failed">("idle");
   const fieldProps = (field: Field) => ({
     id: `ending-${field}`, name: field, required: true,
     "aria-invalid": Boolean(errors[field]),
@@ -19,7 +22,7 @@ export function ContactEnding({ jump }: { jump: (scene: number) => void }) {
   });
   const error = (field: Field) => errors[field] ? <span className="contact-error" id={`ending-${field}-error`}>{errors[field]}</span> : null;
 
-  function submit(event: FormEvent<HTMLFormElement>) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const result = contactEnquirySchema.safeParse(Object.fromEntries(new FormData(event.currentTarget)));
     setCopyStatus("");
@@ -37,6 +40,11 @@ export function ContactEnding({ jump }: { jump: (scene: number) => void }) {
     }
     setErrors({});
     setPrepared(result.data);
+    setStatus("sending");
+    const { error: insertError } = await supabase.from("contact_enquiries").insert(result.data);
+    if (insertError) { setStatus("failed"); return; }
+    setStatus("sent");
+    formRef.current?.reset();
   }
 
   async function copy() {
@@ -59,10 +67,10 @@ export function ContactEnding({ jump }: { jump: (scene: number) => void }) {
           <div className="contact-invitation">
             <p className="contact-eyebrow">Let’s start a conversation</p>
             <h2 id="contact-ending-title">Your <em>next chapter</em> starts with a conversation.</h2>
-            <p className="contact-intro">Every financial journey is different. Tell us a little about what matters to you, and let’s explore how thoughtful, independent advice can help you move forward with clarity.</p>
-            <div className="contact-editorial"><span aria-hidden="true" />Independent thinking.<br />A shared direction.</div>
+            <p className="contact-intro">Every financial journey is different. Tell us a little about what matters to you, and let’s explore how thoughtful advice can help you move forward with clarity.</p>
+            <div className="contact-editorial"><span aria-hidden="true" />Careful thinking.<br />A shared direction.</div>
           </div>
-          <form ref={formRef} className="contact-form" noValidate onSubmit={submit} onChange={() => { setPrepared(null); setCopyStatus(""); }} aria-labelledby="contact-form-title">
+          <form ref={formRef} className="contact-form" noValidate onSubmit={(e) => void submit(e)} onChange={() => { if (status !== "sending") { setPrepared(null); setCopyStatus(""); setStatus("idle"); } }} aria-labelledby="contact-form-title">
             <div className="contact-form-heading"><h3 id="contact-form-title">What matters to you?</h3><p>A little context. A clearer beginning.</p></div>
             <div className="contact-fields">
               <div className="contact-field"><label htmlFor="ending-name">Full name</label><input {...fieldProps("name")} autoComplete="name" placeholder="Your full name" />{error("name")}</div>
@@ -71,11 +79,11 @@ export function ContactEnding({ jump }: { jump: (scene: number) => void }) {
               <div className="contact-field"><label htmlFor="ending-interest">Area of interest</label><select {...fieldProps("interest")} defaultValue=""><option value="" disabled>Select an interest</option>{interestAreas.map((value) => <option key={value}>{value}</option>)}</select>{error("interest")}</div>
               <div className="contact-field contact-field-wide"><label htmlFor="ending-message">Message</label><textarea {...fieldProps("message")} rows={3} placeholder="Tell us what you have in mind…" />{error("message")}</div>
             </div>
-            <p className="contact-availability">Online submission is not connected yet. Your details will not be sent.</p>
-            <Button type="submit" className="contact-submit">Start a conversation <ArrowUpRight aria-hidden="true" /></Button>
-            <p className="contact-privacy">Your details stay on this page until you choose to copy them.</p>
+            <Button type="submit" className="contact-submit" disabled={status === "sending"}>{status === "sending" ? "Sending…" : "Start a conversation"} <ArrowUpRight aria-hidden="true" /></Button>
+            <p className="contact-privacy">Please don’t include account numbers or other sensitive financial details. We use your details only to reply to you.</p>
             <div className="contact-feedback" role="status" aria-live="polite">
-              {prepared && <><p><strong>Your enquiry is ready, but has not been sent.</strong> You can copy it for your records while online submission is unavailable.</p><Button type="button" variant="ghost" className="contact-copy" disabled={copying} onClick={() => void copy()}><Copy aria-hidden="true" />{copying ? "Copying…" : "Copy enquiry"}</Button></>}
+              {status === "sent" && <p><strong>Thank you — your enquiry has been received.</strong></p>}
+              {status === "failed" && prepared && <><p><strong>We couldn’t send your enquiry.</strong> Please try again, or copy it so nothing is lost.</p><Button type="button" variant="ghost" className="contact-copy" disabled={copying} onClick={() => void copy()}><Copy aria-hidden="true" />{copying ? "Copying…" : "Copy enquiry"}</Button></>}
               {copyStatus && <p>{copyStatus}</p>}
             </div>
           </form>
@@ -83,13 +91,14 @@ export function ContactEnding({ jump }: { jump: (scene: number) => void }) {
       </section>
       <footer className="white-ending">
         <div className="white-ending-main">
-          <div className="footer-brand"><Button variant="ghost" className="footer-logo" onClick={() => jump(0)} aria-label="iCapital home"><span><i>i</i>Capital</span><small>Wealth Management<br />Advisors</small></Button><p>The value is in the journey.</p></div>
+          <div className="footer-brand"><Button variant="ghost" className="footer-logo" onClick={() => jump(0)} aria-label="iCapital home"><span><i>i</i>Capital</span><small>Wealth Management<br />Advisors</small></Button><p>The value is in the journey.</p>{visibleFacts(contactInfo).map((f) => <p key={f.label} className={f.placeholder ? "footer-contact is-placeholder" : "footer-contact"}>{f.label}: {f.value}</p>)}</div>
           <nav className="footer-chapters" aria-label="Footer chapters">
             <div><h3>The journey</h3>{[["Perspective", 1], ["Our compass", 3], ["Legacy", 4]].map(([label, scene]) => <Button key={label} variant="ghost" onClick={() => jump(Number(scene))}>{label}</Button>)}</div>
             <div><h3>A shared direction</h3>{[["Vision", 8], ["Clarity", 9], ["By your side", 11]].map(([label, scene]) => <Button key={label} variant="ghost" onClick={() => jump(Number(scene))}>{label}</Button>)}</div>
           </nav>
         </div>
-        <div className="white-ending-legal"><span>© {new Date().getUTCFullYear()} iCapital · [Placeholder: regulatory disclosure and registered address]</span><Button variant="ghost" onClick={() => jump(0)} className="footer-replay">Back to the beginning <RotateCcw aria-hidden="true" /></Button></div>
+        <div className="white-ending-legal"><span>© {new Date().getUTCFullYear()} iCapital</span>
+          {visibleLegal().length > 0 && <nav className="footer-legal" aria-label="Legal">{visibleLegal().map((l) => l.href ? <a key={l.label} href={l.href}>{l.label}</a> : <span key={l.label} className="is-placeholder">{l.label} <sup className="dev-flag">dev</sup></span>)}</nav>}<Button variant="ghost" onClick={() => jump(0)} className="footer-replay">Back to the beginning <RotateCcw aria-hidden="true" /></Button></div>
       </footer>
     </>
   );

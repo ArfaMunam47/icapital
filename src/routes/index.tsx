@@ -47,7 +47,7 @@ function Credibility() {
   return <dl className="scene-proof">{facts.map((f) => <div key={f.label} className={f.placeholder ? "is-placeholder" : ""}><dt>{f.value}</dt><dd>{f.label}</dd></div>)}</dl>;
 }
 
-const labels = ["The journey", "Perspective", "Direction", "Our compass", "Legacy", "Who we serve", "Independence", "Direction", "Vision", "Clarity", "Patience", "Alignment", "Perspective"];
+const labels = ["The journey", "Perspective", "Direction", "Our compass", "Legacy", "Who we serve", "Conviction", "Trust", "Vision", "Clarity", "Patience", "Alignment", "Perspective"];
 const toContact = () => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
 
 const scenes: Scene[] = [

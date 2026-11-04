@@ -15,3 +15,4 @@
 - Living chapter surfaces render in a lifecycle-managed Canvas 2D module through StoryLandscape; continuous media bypasses video seeking so idle motion and native scrolling coexist.
 - Scene audio uses opt-in browser Web Audio with playhead crossfades, visibility suspension and unmount cleanup; never autoplay sound or couple it to scrubbed video tracks.
 - Keep the final contact experience in ContactEnding, with a separately tested enquiry schema and scoped ending styles; without a delivery integration it only validates and offers copying, never reports a sent enquiry.
+- Business facts, services, legal links and contact details live in src/lib/business.ts; unverified entries render only in dev builds so placeholders never publish.

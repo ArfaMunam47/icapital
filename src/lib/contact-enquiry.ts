@@ -14,5 +14,5 @@ export const contactEnquirySchema = z.object({
 export type ContactEnquiry = z.infer<typeof contactEnquirySchema>;
 
 export function formatEnquiry(values: ContactEnquiry) {
-  return `iCapital enquiry — not submitted\n\nFull name: ${values.name}\nEmail: ${values.email}\nEnquiring as: ${values.enquiry}\nArea of interest: ${values.interest}\n\n${values.message}`;
+  return `iCapital enquiry — copy\n\nFull name: ${values.name}\nEmail: ${values.email}\nEnquiring as: ${values.enquiry}\nArea of interest: ${values.interest}\n\n${values.message}`;
 }
