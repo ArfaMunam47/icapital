@@ -416,3 +416,10 @@
 .scene-proof { flex-wrap: wrap; row-gap: 1rem; }
 .scene-proof .is-placeholder dt { font-size: .85rem; }
 @media (max-width: 760px) { .scene-proof > div { flex: 1 1 30%; min-width: 0; } .scene-proof dt { font-size: 1.1rem; } .scene-proof dd { font-size: 8.5px; } }
+@media (max-width: 760px) {
+  .contact-ending .contact-ending-layout { grid-template-columns: minmax(0,1fr); gap: 36px; }
+  .contact-ending .contact-invitation { padding-top: 0; }
+  .contact-ending .contact-form { padding: 30px 22px; }
+  .creative-copy-vision { bottom: 42%; width: 86%; }
+  .creative-copy-vision .story-body { font-size: 15px; margin-top: 20px !important; }
+}
