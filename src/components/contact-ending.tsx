@@ -67,17 +67,17 @@ export function ContactEnding({ jump }: { jump: (scene: number) => void }) {
           <div className="contact-invitation">
             <p className="contact-eyebrow">Let’s start a conversation</p>
             <h2 id="contact-ending-title">Your <em>next chapter</em> starts with a conversation.</h2>
-            <p className="contact-intro">Every financial journey is different. Tell us a little about what matters to you, and let’s explore how thoughtful advice can help you move forward with clarity.</p>
-            <div className="contact-editorial"><span aria-hidden="true" />Careful thinking.<br />A shared direction.</div>
+            <p className="contact-intro">Every financial journey is different. Tell us what matters to you, and let’s explore what moving forward could look like.</p>
+            <div className="contact-editorial"><span aria-hidden="true" />Thoughtful guidance.<br />A shared direction.</div>
           </div>
           <form ref={formRef} className="contact-form" noValidate onSubmit={(e) => void submit(e)} onChange={() => { if (status !== "sending") { setPrepared(null); setCopyStatus(""); setStatus("idle"); } }} aria-labelledby="contact-form-title">
-            <div className="contact-form-heading"><h3 id="contact-form-title">What matters to you?</h3><p>A little context. A clearer beginning.</p></div>
+            <div className="contact-form-heading"><h3 id="contact-form-title">What matters to you?</h3><p>A little context. A clearer beginning.</p><p className="contact-required-note">All fields are required.</p></div>
             <div className="contact-fields">
-              <div className="contact-field"><label htmlFor="ending-name">Full name</label><input {...fieldProps("name")} autoComplete="name" placeholder="Your full name" />{error("name")}</div>
+              <div className="contact-field"><label htmlFor="ending-name">Full name</label><input {...fieldProps("name")} autoComplete="name" placeholder="First and last name" />{error("name")}</div>
               <div className="contact-field"><label htmlFor="ending-email">Email address</label><input {...fieldProps("email")} type="email" autoComplete="email" placeholder="you@example.com" />{error("email")}</div>
-              <div className="contact-field"><label htmlFor="ending-enquiry">I am enquiring as</label><select {...fieldProps("enquiry")} defaultValue=""><option value="" disabled>Select an option</option>{enquiryTypes.map((value) => <option key={value}>{value}</option>)}</select>{error("enquiry")}</div>
-              <div className="contact-field"><label htmlFor="ending-interest">Area of interest</label><select {...fieldProps("interest")} defaultValue=""><option value="" disabled>Select an interest</option>{interestAreas.map((value) => <option key={value}>{value}</option>)}</select>{error("interest")}</div>
-              <div className="contact-field contact-field-wide"><label htmlFor="ending-message">Message</label><textarea {...fieldProps("message")} rows={3} placeholder="Tell us what you have in mind…" />{error("message")}</div>
+              <div className="contact-field"><label htmlFor="ending-enquiry">I am enquiring as</label><select {...fieldProps("enquiry")} defaultValue=""><option value="" disabled>Choose one</option>{enquiryTypes.map((value) => <option key={value}>{value}</option>)}</select>{error("enquiry")}</div>
+              <div className="contact-field"><label htmlFor="ending-interest">Area of interest</label><select {...fieldProps("interest")} defaultValue=""><option value="" disabled>Choose a focus</option>{interestAreas.map((value) => <option key={value}>{value}</option>)}</select>{error("interest")}</div>
+              <div className="contact-field contact-field-wide"><label htmlFor="ending-message">Message</label><textarea {...fieldProps("message")} rows={3} placeholder="A few words about your situation or questions — no account details needed." />{error("message")}</div>
             </div>
             <Button type="submit" className="contact-submit" disabled={status === "sending"}>{status === "sending" ? "Sending…" : "Start a conversation"} <ArrowUpRight aria-hidden="true" /></Button>
             <p className="contact-privacy">Please don’t include account numbers or other sensitive financial details. We use your details only to reply to you.</p>

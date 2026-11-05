@@ -71,7 +71,7 @@ const scenes: Scene[] = [
   { bg: "paper", src: trail.url, poster: trailPoster.url, paper: true, center: true, title: <>Whether you are a family,<br />an institution or a company</>, body: <>We are by your side to preserve, grow and project your future</>, extra: <Services /> },
   { bg: "video", src: beach.url, poster: beachPoster.url, title: <><A>Neither</A><br />do we</> },
   { bg: "birds", title: <>Step by step,<br />we set the <A>course</A></>, extra: <Credibility /> },
-  { bg: "horizon", creative: "vision", title: <>Vision matters<span className="creative-bridge">when it becomes</span>a <A>decision.</A></> },
+  { bg: "horizon", creative: "vision", title: <>Vision <A>matters.</A></>, body: <>A longer view changes everything. Every decision shapes what comes next.</> },
   { bg: "clarity", poster: alpinePoster.url, creative: "clarity", title: <><span className="clarity-eyebrow">A clearer perspective</span>See beyond<br />the <A>complexity.</A></>, body: <>The decisions that shape a life deserve more than a closer look. They ask for distance, careful thinking and a clear view of what lies ahead.<span className="clarity-closing">Clarity for the decisions that shape tomorrow.</span></>, extra: <ol className="scene-steps">{approach.map((x, i) => <li key={x.step}><span>0{i + 1}</span><b>{x.step}</b> — {x.text}</li>)}</ol> },
   { bg: "living-video", src: beach.url, poster: beachPoster.url, creative: "journey", title: <>Never hurry<br />the <A>journey.</A></> },
   { bg: "living-video", src: ridge.url, poster: ridgePoster.url, creative: "side", title: <>We take<br />your <A>side.</A></> },
@@ -161,7 +161,10 @@ function Index() {
           const d = p - i; // <0 upcoming, >0 passed
           if (i < Math.floor(p) || i > Math.floor(p) + 1) return null;
           const op = i <= p ? 1 : ease(1 + d);
-          const textOp = 1 - ease((Math.abs(d) - 0.15) / 0.65);
+          // Vision enters over a solid navy field: the outgoing text clears early and Vision copy waits for its scene.
+          const intoVision = scenes[i + 1]?.bg === "horizon" && d > 0;
+          const isVision = sc.bg === "horizon" && d < 0;
+          const textOp = intoVision ? 1 - ease((d - 0.05) / 0.3) : isVision ? ease((d + 0.45) / 0.35) : 1 - ease((Math.abs(d) - 0.15) / 0.65);
           const ty = d * -20;
           const reveal = i <= p ? 1 : ease((d + 0.75) / 0.6);
           const revealBody = i <= p ? 1 : ease((d + 0.5) / 0.45);

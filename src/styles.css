@@ -159,7 +159,18 @@
 .contact-intro { max-width: 37ch; font-size: 14px; line-height: 1.9; color: var(--ending-body); margin-top: 30px; }
 .contact-editorial { display: flex; align-items: center; gap: 18px; margin-top: 46px; font-size: 11px; line-height: 1.8; color: var(--ending-body); }
 .contact-editorial > span { width: 40px; height: 1px; background: var(--closing-accent); }
-.contact-form { background: var(--ending-panel); color: var(--ending-navy); border-radius: 4px; padding: 36px; box-shadow: var(--ending-panel-shadow); }
+.contact-form { background: var(--ending-panel); color: var(--ending-navy); border-radius: 2px; padding: 44px 40px 36px; box-shadow: var(--ending-panel-shadow); border: 1px solid oklch(0.9 0.015 80 / 0.6); }
+.contact-ending .contact-form { --ending-panel: oklch(0.955 0.012 80); --ending-divider: oklch(0.8 0.018 75); --ending-neutral: oklch(0.47 0.02 250); --ending-panel-shadow: 0 30px 80px -40px oklch(0.05 0.03 260 / 0.5); }
+.contact-ending .contact-form-heading h3 { font-family: var(--font-serif); font-size: 26px; line-height: 1.25; }
+.contact-required-note { margin-top: 14px !important; font-size: 10px !important; letter-spacing: 0.14em; text-transform: uppercase; }
+.contact-ending .contact-field label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ending-neutral); }
+.contact-ending .contact-field :is(input, select, textarea) { font-size: 15px; transition: border-color 200ms ease; }
+.contact-ending .contact-field :is(input, select, textarea):hover { border-color: var(--ending-navy); }
+.contact-ending .contact-field select { appearance: none; cursor: pointer; background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%); background-position: calc(100% - 9px) 52%, calc(100% - 4px) 52%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 24px; }
+.contact-ending .contact-field textarea { min-height: 104px; line-height: 1.6; }
+.contact-ending .contact-submit { min-height: 54px; margin-top: 30px; letter-spacing: 0.14em; text-transform: uppercase; font-size: 11px; padding-inline: 22px; }
+.contact-ending .contact-ending-layout { grid-template-columns: 0.92fr 1fr; gap: 9%; align-items: start; }
+.contact-ending .contact-invitation { padding-top: 44px; }
 .contact-form-heading { padding-bottom: 26px; margin-bottom: 26px; border-bottom: 1px solid var(--ending-divider); }
 .contact-form-heading h3 { font-weight: 400; font-size: 21px; line-height: 1.5; }
 .contact-form-heading p { font-size: 11px; color: var(--ending-neutral); margin-top: 5px; }
@@ -282,8 +293,13 @@
 .horizon-glow { position: absolute; left: 50%; top: 68%; width: 60vmin; height: 30vmin; transform: translate(-50%, -100%); border-radius: 60vmin 60vmin 0 0; background: radial-gradient(ellipse at 50% 100%, oklch(0.82 0.1 235 / 0.22), transparent 70%); }
 .horizon-mark { position: absolute; top: 72%; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted-foreground); }
 @keyframes horizon-sweep { from { left: 0; } to { left: 78%; } }
-.creative-copy-vision { top: 24% !important; left: 8%; width: 70%; text-shadow: none !important; }
-.creative-copy-vision .story-heading { font-size: clamp(36px, 5vw, 64px) !important; }
+.creative-copy-vision { top: auto !important; bottom: 40%; left: 8%; width: 70%; max-width: 760px; text-shadow: none !important; }
+.creative-copy-vision .scene-label { margin-bottom: 28px; }
+.creative-copy-vision .story-heading { font-size: clamp(44px, 7.4vw, 104px) !important; line-height: 1.02 !important; letter-spacing: -0.01em; }
+.creative-copy-vision .story-body { margin-top: 28px !important; max-width: 34ch; font-size: 16px; line-height: 1.7; color: var(--muted-foreground); }
+.horizon-canvas .horizon-line { top: 66%; }
+.horizon-canvas .horizon-glow { top: 66%; }
+.horizon-canvas .horizon-mark { top: 69%; }
 .creative-copy-vision .creative-bridge { font-size: 15px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--creative-accent); }
 /* Clarity: a focusing lens — a blurred, layered world with one sharp aperture opening as you scroll */
 .clarity-canvas { background: var(--night, oklch(0.18 0.05 258)); overflow: hidden; }
@@ -400,3 +416,10 @@
 .scene-proof { flex-wrap: wrap; row-gap: 1rem; }
 .scene-proof .is-placeholder dt { font-size: .85rem; }
 @media (max-width: 760px) { .scene-proof > div { flex: 1 1 30%; min-width: 0; } .scene-proof dt { font-size: 1.1rem; } .scene-proof dd { font-size: 8.5px; } }
+@media (max-width: 760px) {
+  .contact-ending .contact-ending-layout { grid-template-columns: minmax(0,1fr); gap: 36px; }
+  .contact-ending .contact-invitation { padding-top: 0; }
+  .contact-ending .contact-form { padding: 30px 22px; }
+  .creative-copy-vision { bottom: 42%; width: 86%; }
+  .creative-copy-vision .story-body { font-size: 15px; margin-top: 20px !important; }
+}
