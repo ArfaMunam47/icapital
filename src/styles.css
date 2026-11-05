@@ -397,3 +397,6 @@
 .journey-tick:hover::before { opacity: .8; }
 .journey-label { writing-mode: vertical-rl; font-size: 9.5px; letter-spacing: .28em; text-transform: uppercase; opacity: .6; max-height: 140px; }
 @media (prefers-reduced-motion: reduce) { .journey-tick::before { transition: none; } }
+.scene-proof { flex-wrap: wrap; row-gap: 1rem; }
+.scene-proof .is-placeholder dt { font-size: .85rem; }
+@media (max-width: 760px) { .scene-proof > div { flex: 1 1 30%; min-width: 0; } .scene-proof dt { font-size: 1.1rem; } .scene-proof dd { font-size: 8.5px; } }
