@@ -11,3 +11,4 @@
 - [x] Cinematic scroll: hero entrance, headline reveals, media zoom.
 - [x] Audit improvements: chapter labels, services, how we work, proof, legal, CTA fix, readability, menu order, logo, mobile counter.
 - [x] Business readiness: central config + dev-only publication, Discover/Define/Navigate, credibility fields, legal footer, remove unverified claims, real contact submissions.
+- [x] Art direction pass: grading, pacing, music foundation, chapter indicator.
