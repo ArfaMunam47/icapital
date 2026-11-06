@@ -423,3 +423,47 @@
   .creative-copy-vision { bottom: 42%; width: 86%; }
   .creative-copy-vision .story-body { font-size: 15px; margin-top: 20px !important; }
 }
+
+/* Vision: final art direction (scoped) */
+.horizon-peak { position: absolute; top: 0; right: 0; bottom: 0; width: 56%; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 42%), linear-gradient(180deg, #000 55%, transparent 92%); mask-image: linear-gradient(90deg, transparent 0%, #000 42%); }
+.horizon-peak img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 35%; opacity: .72; filter: saturate(.7) contrast(1.08) brightness(.9) hue-rotate(-6deg); }
+.horizon-peak::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in oklab, var(--creative-ink) 35%, transparent) 0%, transparent 30%, color-mix(in oklab, var(--creative-ink) 90%, transparent) 70%, var(--creative-ink) 100%); }
+.horizon-canvas .horizon-line { top: 70%; left: 8%; right: 8%; background: linear-gradient(90deg, color-mix(in oklab, var(--foreground) 35%, transparent), color-mix(in oklab, var(--foreground) 14%, transparent)); }
+.horizon-canvas .horizon-glow { top: 70%; left: 72%; opacity: .7; }
+.horizon-tick { position: absolute; top: calc(70% - 4px); width: 1px; height: 9px; background: color-mix(in oklab, var(--foreground) 45%, transparent); }
+.horizon-canvas .horizon-mark { top: calc(70% + 18px); font-size: 9.5px; letter-spacing: .34em; color: color-mix(in oklab, var(--foreground) 55%, transparent); }
+.creative-copy-vision { bottom: 38% !important; width: 52% !important; }
+.creative-copy-vision .story-heading { font-size: clamp(44px, 6.6vw, 96px) !important; }
+@media (max-width: 760px) {
+  .horizon-peak { width: 100%; height: 52%; -webkit-mask-image: linear-gradient(180deg, #000 40%, transparent 100%); mask-image: linear-gradient(180deg, #000 40%, transparent 100%); }
+  .horizon-peak img { opacity: .55; }
+  .creative-copy-vision { width: 86% !important; bottom: 40% !important; }
+  .horizon-canvas .horizon-glow { left: 50%; }
+}
+
+/* Footer: final signature (scoped) */
+.white-ending { background: oklch(0.965 0.008 85); padding: 72px 7% 28px; }
+.white-ending::before { content: ""; position: absolute; left: 0; right: 0; top: -120px; height: 120px; pointer-events: none; background: linear-gradient(180deg, transparent, oklch(0.965 0.008 85)); opacity: .0; }
+.white-ending-main { display: grid; grid-template-columns: 1.2fr 1fr; align-items: end; gap: 64px; padding-bottom: 56px; }
+.footer-brand > p:first-of-type { font-family: var(--font-serif, "Playfair Display", serif); font-style: italic; font-size: clamp(26px, 2.8vw, 38px); line-height: 1.15; color: var(--ending-navy); margin-top: 28px; max-width: 16ch; }
+.footer-chapters { justify-content: flex-end; gap: 72px; }
+.footer-chapters h3 { font-size: 9.5px; letter-spacing: .24em; text-transform: uppercase; padding-bottom: 12px; border-bottom: 1px solid var(--ending-divider); width: 100%; min-width: 150px; }
+.footer-chapters button { font-size: 13px; position: relative; transition: color .3s, transform .3s; }
+.footer-chapters button::after { content: ""; position: absolute; left: 0; bottom: 3px; height: 1px; width: 100%; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .35s ease; }
+.footer-chapters button:hover { transform: translateX(3px); }
+.footer-chapters button:hover::after { transform: scaleX(1); }
+.white-ending-legal { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+.footer-replay { letter-spacing: .12em; text-transform: uppercase; }
+.footer-replay svg { transition: transform .5s ease; }
+.footer-replay:hover svg { transform: rotate(-180deg); }
+@media (max-width: 760px) {
+  .white-ending { padding: 52px 7% 24px; }
+  .white-ending-main { grid-template-columns: 1fr; gap: 40px; }
+  .footer-chapters { justify-content: flex-start; gap: 32px; }
+  .footer-chapters > div { flex: 1; }
+  .footer-chapters h3 { min-width: 0; }
+  .white-ending-legal { padding-left: 0; }
+}
+.white-ending { padding-top: 88px; box-shadow: inset 0 1px 0 color-mix(in oklab, var(--ending-navy) 10%, transparent); }
+.white-ending::before { opacity: 1; top: 0; left: 7%; right: auto; width: 64px; height: 2px; background: var(--brand-blue-soft); }
+@media (max-width: 760px) { .white-ending { padding-top: 64px; } }
