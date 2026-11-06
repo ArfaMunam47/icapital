@@ -464,5 +464,6 @@
   .footer-chapters h3 { min-width: 0; }
   .white-ending-legal { padding-left: 0; }
 }
-.white-ending { background: linear-gradient(180deg, var(--ending-navy) 0, color-mix(in oklab, var(--ending-navy) 55%, oklch(0.965 0.008 85)) 40px, oklch(0.965 0.008 85) 150px); padding-top: 150px; }
-@media (max-width: 760px) { .white-ending { padding-top: 110px; } }
+.white-ending { padding-top: 88px; box-shadow: inset 0 1px 0 color-mix(in oklab, var(--ending-navy) 10%, transparent); }
+.white-ending::before { opacity: 1; top: 0; left: 7%; right: auto; width: 64px; height: 2px; background: var(--brand-blue-soft); }
+@media (max-width: 760px) { .white-ending { padding-top: 64px; } }
