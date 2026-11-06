@@ -177,8 +177,9 @@
 .contact-fields { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 24px 18px; }
 .contact-field { display: flex; flex-direction: column; min-width: 0; gap: 8px; }
 .contact-field-wide { grid-column: 1 / -1; }
-.contact-field label { font-size: 11px; font-weight: 500; }
-.contact-field input, .contact-field select, .contact-field textarea { width: 100%; min-width: 0; border: 0; border-bottom: 1px solid var(--ending-divider); border-radius: 0; background: transparent; color: var(--ending-navy); font: inherit; font-size: 12px; min-height: 42px; padding: 8px 0; }
+.contact-field label { font-size: 11px; font-weight: 500; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.contact-optional { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ending-neutral); opacity: 0.75; }
+.contact-field input, .contact-field select, .contact-field textarea { width: 100%; min-width: 0; border: 0; border-bottom: 1px solid var(--ending-divider); border-radius: 0; background: transparent; color: var(--ending-navy); font: inherit; font-size: 15px; min-height: 44px; padding: 10px 0; }
 .contact-field select { padding-right: 12px; }
 .contact-field textarea { resize: vertical; min-height: 84px; }
 .contact-field input::placeholder, .contact-field textarea::placeholder { color: var(--ending-neutral); opacity: 1; }

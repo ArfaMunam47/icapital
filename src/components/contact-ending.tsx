@@ -15,11 +15,13 @@ export function ContactEnding({ jump }: { jump: (scene: number) => void }) {
   const [copying, setCopying] = useState(false);
   const [copyStatus, setCopyStatus] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "failed">("idle");
+  const requiredFields: Field[] = ["name", "email"];
   const fieldProps = (field: Field) => ({
-    id: `ending-${field}`, name: field, required: true,
+    id: `ending-${field}`, name: field, required: requiredFields.includes(field),
     "aria-invalid": Boolean(errors[field]),
     "aria-describedby": errors[field] ? `ending-${field}-error` : undefined,
   });
+  const optional = <span className="contact-optional">Optional</span>;
   const error = (field: Field) => errors[field] ? <span className="contact-error" id={`ending-${field}-error`}>{errors[field]}</span> : null;
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -71,13 +73,13 @@ export function ContactEnding({ jump }: { jump: (scene: number) => void }) {
             <div className="contact-editorial"><span aria-hidden="true" />Thoughtful guidance.<br />A shared direction.</div>
           </div>
           <form ref={formRef} className="contact-form" noValidate onSubmit={(e) => void submit(e)} onChange={() => { if (status !== "sending") { setPrepared(null); setCopyStatus(""); setStatus("idle"); } }} aria-labelledby="contact-form-title">
-            <div className="contact-form-heading"><h3 id="contact-form-title">What matters to you?</h3><p>A little context. A clearer beginning.</p><p className="contact-required-note">All fields are required.</p></div>
+            <div className="contact-form-heading"><h3 id="contact-form-title">What matters to you?</h3><p>A little context. A clearer beginning.</p><p className="contact-required-note">Only your name and email are required.</p></div>
             <div className="contact-fields">
               <div className="contact-field"><label htmlFor="ending-name">Full name</label><input {...fieldProps("name")} autoComplete="name" placeholder="First and last name" />{error("name")}</div>
               <div className="contact-field"><label htmlFor="ending-email">Email address</label><input {...fieldProps("email")} type="email" autoComplete="email" placeholder="you@example.com" />{error("email")}</div>
-              <div className="contact-field"><label htmlFor="ending-enquiry">I am enquiring as</label><select {...fieldProps("enquiry")} defaultValue=""><option value="" disabled>Choose one</option>{enquiryTypes.map((value) => <option key={value}>{value}</option>)}</select>{error("enquiry")}</div>
-              <div className="contact-field"><label htmlFor="ending-interest">Area of interest</label><select {...fieldProps("interest")} defaultValue=""><option value="" disabled>Choose a focus</option>{interestAreas.map((value) => <option key={value}>{value}</option>)}</select>{error("interest")}</div>
-              <div className="contact-field contact-field-wide"><label htmlFor="ending-message">Message</label><textarea {...fieldProps("message")} rows={3} placeholder="A few words about your situation or questions — no account details needed." />{error("message")}</div>
+              <div className="contact-field"><label htmlFor="ending-enquiry">I am enquiring as {optional}</label><select {...fieldProps("enquiry")} defaultValue=""><option value="">Choose one</option>{enquiryTypes.map((value) => <option key={value}>{value}</option>)}</select>{error("enquiry")}</div>
+              <div className="contact-field"><label htmlFor="ending-interest">Area of interest {optional}</label><select {...fieldProps("interest")} defaultValue=""><option value="">Choose a focus</option>{interestAreas.map((value) => <option key={value}>{value}</option>)}</select>{error("interest")}</div>
+              <div className="contact-field contact-field-wide"><label htmlFor="ending-message">Message {optional}</label><textarea {...fieldProps("message")} rows={3} placeholder="A few words about your situation or questions — no account details needed." />{error("message")}</div>
             </div>
             <Button type="submit" className="contact-submit" disabled={status === "sending"}>{status === "sending" ? "Sending…" : "Start a conversation"} <ArrowUpRight aria-hidden="true" /></Button>
             <p className="contact-privacy">Please don’t include account numbers or other sensitive financial details. We use your details only to reply to you.</p>
