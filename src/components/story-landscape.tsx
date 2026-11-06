@@ -3,6 +3,7 @@ import mountain from "@/assets/reference-scene-01-back.webp.asset.json";
 import foreground from "@/assets/reference-scene-01-front.webp.asset.json";
 import clouds from "@/assets/reference-clouds.webp.asset.json";
 import sunset from "@/assets/reference-scene-07.webp.asset.json";
+import visionPeak from "@/assets/s1-mountain.jpg";
 import { LivingLandscape } from "@/components/living-landscape";
 
 export function StoryLandscape({ kind, src, poster, progress }: {
@@ -53,7 +54,7 @@ export function StoryLandscape({ kind, src, poster, progress }: {
   if (kind === "video") return (
     <video ref={video} src={src} poster={poster} muted playsInline preload="auto" className="absolute inset-0 h-full w-full object-cover" aria-hidden="true" />
   );
-  if (kind === "horizon") return <div className="horizon-canvas absolute inset-0"><div className="horizon-glow" style={{ opacity: 0.5 + progress * 0.5 }} /><div className="horizon-line"><div className="horizon-light" /></div><span className="horizon-mark" style={{ left: "8%" }}>Today</span><span className="horizon-mark" style={{ right: "8%" }}>Long term</span></div>;
+  if (kind === "horizon") return <div className="horizon-canvas absolute inset-0"><div className="horizon-peak"><img src={visionPeak} alt="" style={{ transform: `scale(${1.08 - progress * 0.06})` }} /></div><div className="horizon-glow" style={{ opacity: 0.5 + progress * 0.5 }} /><div className="horizon-line"><div className="horizon-light" /></div><span className="horizon-tick" style={{ left: "8%" }} /><span className="horizon-tick" style={{ right: "8%" }} /><span className="horizon-mark" style={{ left: "8%" }}>Today</span><span className="horizon-mark" style={{ right: "8%" }}>Long term</span></div>;
   if (kind === "clarity") {
     // The sharp aperture widens from a narrow slit to a wide window as the playhead advances.
     const open = Math.min(1, Math.max(0, (progress - 0.1) / 0.6));
