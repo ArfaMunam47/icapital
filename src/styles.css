@@ -425,20 +425,23 @@
 }
 
 /* Vision: final art direction (scoped) */
-.horizon-peak { position: absolute; top: 0; right: 0; bottom: 0; width: 56%; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 42%), linear-gradient(180deg, #000 55%, transparent 92%); mask-image: linear-gradient(90deg, transparent 0%, #000 42%); }
-.horizon-peak img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 35%; opacity: .72; filter: saturate(.7) contrast(1.08) brightness(.9) hue-rotate(-6deg); }
-.horizon-peak::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in oklab, var(--creative-ink) 35%, transparent) 0%, transparent 30%, color-mix(in oklab, var(--creative-ink) 90%, transparent) 70%, var(--creative-ink) 100%); }
-.horizon-canvas .horizon-line { top: 70%; left: 8%; right: 8%; background: linear-gradient(90deg, color-mix(in oklab, var(--foreground) 35%, transparent), color-mix(in oklab, var(--foreground) 14%, transparent)); }
-.horizon-canvas .horizon-glow { top: 70%; left: 72%; opacity: .7; }
-.horizon-tick { position: absolute; top: calc(70% - 4px); width: 1px; height: 9px; background: color-mix(in oklab, var(--foreground) 45%, transparent); }
-.horizon-canvas .horizon-mark { top: calc(70% + 18px); font-size: 9.5px; letter-spacing: .34em; color: color-mix(in oklab, var(--foreground) 55%, transparent); }
-.creative-copy-vision { bottom: 38% !important; width: 52% !important; }
+.horizon-peak { position: absolute; top: 7%; right: 5%; bottom: 18%; width: 50%; overflow: hidden; border-radius: 2px; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%), linear-gradient(180deg, transparent 0%, #000 14%, #000 84%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0%, #000 22%), linear-gradient(180deg, transparent 0%, #000 14%, #000 84%, transparent 100%); mask-composite: intersect; }
+.horizon-peak img { width: 100%; height: 100%; object-fit: cover; object-position: 58% 32%; opacity: .95; filter: saturate(.78) contrast(1.14) brightness(1.02) hue-rotate(-6deg); }
+.horizon-peak::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in oklab, var(--creative-ink) 22%, transparent) 0%, transparent 26%, transparent 62%, color-mix(in oklab, var(--creative-ink) 72%, transparent) 88%, var(--creative-ink) 100%); }
+.horizon-canvas .horizon-line { top: 71%; left: 8%; right: 8%; background: linear-gradient(90deg, color-mix(in oklab, var(--foreground) 38%, transparent), color-mix(in oklab, var(--foreground) 16%, transparent)); }
+.horizon-canvas .horizon-glow { top: 71%; left: 68%; opacity: .75; }
+.horizon-tick { position: absolute; top: calc(71% - 5px); width: 1px; height: 11px; background: color-mix(in oklab, var(--foreground) 50%, transparent); }
+.horizon-canvas .horizon-mark { top: calc(71% + 20px); font-size: 9.5px; letter-spacing: .38em; color: color-mix(in oklab, var(--foreground) 60%, transparent); }
+.creative-copy-vision { bottom: 37% !important; width: 46% !important; max-width: 620px; }
 .creative-copy-vision .story-heading { font-size: clamp(44px, 6.6vw, 96px) !important; }
 @media (max-width: 760px) {
-  .horizon-peak { width: 100%; height: 52%; -webkit-mask-image: linear-gradient(180deg, #000 40%, transparent 100%); mask-image: linear-gradient(180deg, #000 40%, transparent 100%); }
-  .horizon-peak img { opacity: .55; }
-  .creative-copy-vision { width: 86% !important; bottom: 40% !important; }
-  .horizon-canvas .horizon-glow { left: 50%; }
+  .horizon-peak { top: 9%; left: 9%; right: 9%; width: auto; height: 34%; bottom: auto; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 82%, transparent 100%), linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 82%, transparent 100%), linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%); mask-composite: intersect; }
+  .horizon-peak img { opacity: .8; object-position: 50% 30%; }
+  .creative-copy-vision { width: 86% !important; bottom: 34% !important; }
+  .horizon-canvas .horizon-line { top: 76%; }
+  .horizon-canvas .horizon-glow { top: 76%; left: 50%; }
+  .horizon-tick { top: calc(76% - 5px); }
+  .horizon-canvas .horizon-mark { top: calc(76% + 18px); }
 }
 
 /* Footer: final signature (scoped) */
