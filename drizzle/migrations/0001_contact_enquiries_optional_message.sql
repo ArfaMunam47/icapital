@@ -1,0 +1,1 @@
+ALTER TABLE public.contact_enquiries DROP CONSTRAINT contact_enquiries_message_check; ALTER TABLE public.contact_enquiries ADD CONSTRAINT contact_enquiries_message_check CHECK (char_length(message) <= 2000);
