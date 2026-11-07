@@ -124,5 +124,4 @@ All original branding, photography, and other intellectual property remain the p
 <p align="center">
   <strong>LEARN. EXPERIMENT. CREATE. REFINE.</strong>
   <br/><br/>
-  <em>Building better interfaces, one thoughtful detail at a time.</em> ✦
-</p>
+  <em>Building better interfaces, one thoughtful detail at a time.</em> ❤️🏔️</p>
