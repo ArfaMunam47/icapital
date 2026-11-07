@@ -109,6 +109,7 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
+        <base href="/icapital-independent-financial-advice/" />
         <HeadContent />
       </head>
       <body>
