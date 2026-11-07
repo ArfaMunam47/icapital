@@ -3,16 +3,16 @@
 <p align="center">
   <strong>THE ART OF DIGITAL STORYTELLING</strong>
   <br/>
-  An independent frontend recreation inspired by iCapital's immersive digital experience.
+  An immersive frontend recreation inspired by iCapital's digital experience.
   <br/><br/>
-  <img src="https://img.shields.io/badge/Project-UI%20Practice-173B57?style=for-the-badge" alt="UI Practice"/>
-  <img src="https://img.shields.io/badge/Status-In%20Progress-D9A86C?style=for-the-badge" alt="In Progress"/>
+  <img src="https://img.shields.io/badge/Project-Completed-2E8B57?style=for-the-badge" alt="Project Completed"/>
   <img src="https://img.shields.io/badge/Focus-Frontend%20Development-456F91?style=for-the-badge" alt="Frontend Development"/>
+  <img src="https://img.shields.io/badge/Type-UI%20Recreation-173B57?style=for-the-badge" alt="UI Recreation"/>
 </p>
 
 ---
 
-### ✦ The idea behind the experience
+### ✦ The vision behind the experience
 
 **What if a website could feel like a journey rather than just another page?**
 
@@ -20,9 +20,9 @@ Inspired by [iCapital — Independent Financial Advice](https://www.icapital.es/
 
 The original website transforms landscapes and carefully composed words into an experience that feels expansive, elegant, and intentional.
 
-I'm recreating that experience as a personal UI practice project — challenging myself to study the details, experiment with advanced interface techniques, and develop a stronger eye for exceptional digital design.
+I recreated this experience as an independent UI practice project, challenging myself to explore sophisticated interface techniques, study professional design decisions, and strengthen my frontend development skills.
 
-This isn't about simply reproducing a layout. It's about understanding the decisions behind it and learning how to bring a sophisticated visual concept to life.
+More than simply recreating a layout, this project was an opportunity to understand how visual storytelling, animation, composition, and technology come together to create memorable digital experiences.
 
 > *Every detail shapes the experience. Every interaction tells a story.*
 
@@ -30,41 +30,39 @@ This isn't about simply reproducing a layout. It's about understanding the decis
 
 | ✧ Design element | ✦ Creative direction |
 |---|---|
-| 🌄 Landscape photography | Full-screen scenery, depth, atmosphere, and intentional image composition |
-| 🖋️ Editorial typography | Elegant typefaces, expressive italics, and carefully balanced text |
-| 🌀 Scroll interactions | Smooth transitions and a visual narrative that unfolds naturally |
-| 🎞️ Motion design | Subtle movement, atmospheric changes, and refined animation timing |
-| 🎯 UI craftsmanship | Spacing, contrast, alignment, consistency, and visual hierarchy |
-| 📱 Responsive experience | Adapting the composition across desktop, tablet, and mobile |
+| 🌄 Landscape photography | Immersive scenery, atmospheric visuals, and cinematic compositions |
+| 🖋️ Editorial typography | Elegant typography, expressive italics, and balanced text layouts |
+| 🌀 Scroll interactions | Smooth transitions and a naturally unfolding visual narrative |
+| 🎞️ Motion design | Subtle animations, atmospheric movement, and refined timing |
+| 🎯 UI craftsmanship | Thoughtful spacing, contrast, alignment, and visual hierarchy |
+| 📱 Responsive design | Adaptable compositions across desktop, tablet, and mobile |
 
-### 🧭 My creative mission
+### 🧭 The creative journey
 
-I'm using this project to push beyond ordinary frontend layouts and improve the way I approach UI design.
+The main goal was to move beyond conventional frontend layouts and explore the details that make high-quality digital experiences stand out.
 
-My focus is on learning how professional digital experiences combine visual composition, motion, usability, and technical execution.
-
-**What I want to improve:**
+Throughout development, I focused on:
 
 - ✦ Building visually compelling and well-balanced interfaces.
-- ✦ Recreating complex visual references with greater accuracy.
-- ✦ Exploring scroll-driven animation and seamless transitions.
-- ✦ Developing a better understanding of typography and composition.
-- ✦ Creating responsive experiences without sacrificing visual quality.
-- ✦ Turning ambitious design ideas into functional frontend experiences.
-- ✦ Refining the small details that make a website feel polished and professional.
+- ✦ Translating an existing visual reference into a functional frontend experience.
+- ✦ Exploring scroll-driven animations and seamless transitions.
+- ✦ Improving typography, image composition, and visual hierarchy.
+- ✦ Creating responsive layouts without compromising visual quality.
+- ✦ Turning ambitious design concepts into working interface components.
+- ✦ Refining the small details that contribute to a polished final result.
 
 ### ⚙️ Technologies & tools
 
-The implementation will reflect the tools actually used as the project develops.
+The project explores modern frontend development techniques and the following technologies, where included in the implementation:
 
-- **HTML5** — semantic structure
-- **CSS3** — responsive layouts, typography, transitions, and visual effects
-- **JavaScript** — interaction logic and dynamic behavior
-- **React** — component-based development, if included in the project setup
-- **GSAP / ScrollTrigger** — advanced scroll animation, where appropriate
-- **Vite** — development and build tooling, if included in the project setup
+- **HTML5** — Semantic structure and accessible markup.
+- **CSS3** — Responsive layouts, typography, transitions, and visual effects.
+- **JavaScript** — Interactive behavior and dynamic functionality.
+- **React** — Component-based interface development, if used in the project setup.
+- **GSAP / ScrollTrigger** — Scroll-based animation and motion control, where implemented.
+- **Vite** — Fast development environment and build tooling, where used.
 
-### 💎 The principles I believe in
+### 💎 Design principles
 
 **01 — Design with intention**
 
@@ -72,11 +70,11 @@ Every element should contribute to the overall experience.
 
 **02 — Motion with meaning**
 
-Animations should create continuity, guide attention, and support the story.
+Animations should create continuity, guide attention, and support the visual narrative.
 
 **03 — Details make the difference**
 
-Typography, spacing, image positioning, and timing deserve as much attention as the overall layout.
+Typography, spacing, image positioning, and animation timing deserve as much attention as the overall layout.
 
 **04 — Creativity meets usability**
 
@@ -84,29 +82,36 @@ A beautiful interface should also be responsive, accessible, and intuitive.
 
 **05 — Never stop refining**
 
-Every iteration is a chance to improve the design, the implementation, and my understanding of frontend development.
+Every project is an opportunity to improve design thinking, technical execution, and creative problem-solving.
 
-### 🚧 Project status
+### 🏆 Project completion
 
-**Currently in progress**
+<badge>✓ Completed</badge>
 
-This project is being developed and refined iteratively. The current priority is to recreate the reference's visual identity, establish the complete scene progression, and improve the quality of its interactions and transitions.
+The independent iCapital-inspired frontend recreation is complete.
 
-Planned refinements include:
+The project brings together the visual direction, immersive storytelling, and interaction concepts explored throughout development.
 
-- 🎨 More precise visual matching.
-- 🌀 Smoother scene transitions.
-- 🖥️ Improved responsive compositions.
-- ⚡ Performance and animation optimization.
-- ✨ Further UI polish and interaction refinement.
+Completing this experience represents an important step in my frontend journey, allowing me to experiment with more advanced UI techniques and develop a deeper appreciation for the relationship between design and implementation.
 
-### 🏆 Design inspiration & recognition
+### ✨ What I learned
 
-The project takes inspiration from the design and storytelling of the original [iCapital website](https://www.icapital.es/en/).
+This project helped me strengthen my understanding of:
 
-Explore its [CSS Design Awards listing](https://www.cssdesignawards.com/sites/icapital/50368/) for the website's design recognition.
+- Translating professional design references into functional interfaces.
+- Creating more sophisticated visual compositions.
+- Working with animation and interaction concepts.
+- Improving responsive frontend development.
+- Paying closer attention to typography, spacing, and visual consistency.
+- Balancing creative expression with usability and performance.
 
-The purpose of this recreation is to study, practice, and learn from sophisticated digital experiences while developing my own frontend skills and creative approach.
+### 🌐 Design inspiration & recognition
+
+This project takes inspiration from the design and storytelling of the original [iCapital website](https://www.icapital.es/en/).
+
+Explore the original design's [CSS Design Awards listing](https://www.cssdesignawards.com/sites/icapital/50368/).
+
+The recreation is an independent educational project created to study sophisticated digital experiences and develop my own frontend skills and creative approach.
 
 ### 🤍 A note about this project
 
